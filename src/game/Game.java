@@ -19,7 +19,7 @@ public class Game {
         this.tileMap = new TileMap();
 
         this.rm = new RenderManager();
-        this.rm.addRenderable(this.tileMap.getMap());
+        this.rm.add(this.tileMap);
         this.w = new Window();
 
         this.w.add(this.rm);

@@ -10,23 +10,21 @@ import java.util.List;
 public class RenderManager extends Canvas {
 
 
-    private final List<Renderable> list;
 
+    private List<Renderable> renderList;
     private Graphics2D graphics;
 
+
     public RenderManager() {
-        this.list = new ArrayList<>();
+        this.renderList = new ArrayList<>();
         this.setBounds(0, 0, Config.WINDOW_WIDTH, Config.WINDOW_HEIGHT);
         this.setVisible(true);
     }
 
-    public void addRenderable(Renderable renderable) {
-        this.list.add(renderable);
+    public void add(Renderable go)    {
+        this.renderList.add(go);
     }
 
-    public void addRenderable(List<Renderable> renderable) {
-        this.list.addAll(renderable);
-    }
 
     public void render() {
 
@@ -40,7 +38,7 @@ public class RenderManager extends Canvas {
 
         this.graphics = (Graphics2D)bs.getDrawGraphics();
 
-        for (Renderable r: this.list) {
+        for (Renderable r : this.renderList) {
             r.render(this.graphics);
         }
 

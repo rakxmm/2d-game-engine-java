@@ -2,8 +2,8 @@ package util;
 
 public class Config {
 
-    public static final int TILE_SCALE = 2;
-    public static final int DEFAULT_TILE_SIZE = 16;
+    private static final int TILE_SCALE = 2;
+    private static final int DEFAULT_TILE_SIZE = 16;
 
     public static final int TILE_SIZE = DEFAULT_TILE_SIZE * TILE_SCALE;
     public static final int WINDOW_WIDTH = 1280;
