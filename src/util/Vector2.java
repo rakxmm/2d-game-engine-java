@@ -4,7 +4,7 @@ public class Vector2 {
     private double x;
     private double y;
 
-    public Vector2(int x, int y) {
+    public Vector2(double x, double y) {
         this.x = x;
         this.y = y;
     }

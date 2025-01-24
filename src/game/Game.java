@@ -1,31 +1,42 @@
 package game;
 
+import entity.player.Player;
 import tile.TileMap;
 import util.Config;
-
-import java.text.CompactNumberFormat;
-import java.util.ArrayList;
-import java.util.List;
+import util.InputManager;
 
 public class Game {
 
-    private final RenderManager rm;
-    private final Window w;
+    private final RenderManager renderManager;
+    private final Window window;
 
     private final TileMap tileMap;
-
+    private final Player player;
+    private final InputManager inputManager;
 
     public Game() {
+        this.window = new Window();
+        this.renderManager = new RenderManager();
+        this.inputManager = new InputManager();
+        this.renderManager.addKeyListener(this.inputManager);
+
         this.tileMap = new TileMap();
+        this.player = new Player();
+        this.player.addInputManager(this.inputManager);
 
-        this.rm = new RenderManager();
-        this.rm.add(this.tileMap);
-        this.w = new Window();
 
-        this.w.add(this.rm);
-        this.w.pack();
-        this.w.setLocationRelativeTo(null);
-        this.w.setVisible(true);
+
+        this.renderManager.add(this.player);
+        this.renderManager.add(this.tileMap);
+
+
+        this.window.add(this.renderManager);
+
+
+
+        this.window.pack();
+        this.window.setLocationRelativeTo(null);
+        this.window.setVisible(true);
     }
 
     public void start() {
@@ -33,7 +44,7 @@ public class Game {
     }
 
     private void logic() {
-
+        this.player.move();
     }
 
     private void gameLoop() {
@@ -55,9 +66,6 @@ public class Game {
                 this.logic();
             }
 
-
-
-
             if (timer >= Config.SECOND) {
                 System.out.println("FPS: " + fps + " || TICKS: " + ticks);
                 fps = 0;
@@ -66,18 +74,11 @@ public class Game {
             }
 
             fps++;
-            this.rm.render();
+            this.renderManager.render();
 
             lastTime = currentTime;
-
-
-
-
-
-
         }
     }
-
 
     public static void main(String[] args) {
         new Game().start();

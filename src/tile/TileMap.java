@@ -15,6 +15,7 @@ public class TileMap implements Renderable {
     private BufferedImage image;
     private List<Tile> map;
 
+
     public TileMap() {
         this.image = new BufferedImage(Config.WINDOW_WIDTH, Config.WINDOW_HEIGHT, 1);
         this.map = new ArrayList<>();
@@ -53,5 +54,20 @@ public class TileMap implements Renderable {
     @Override
     public void render(Graphics2D graphics2D) {
         graphics2D.drawImage(this.image, 0, 0, Config.WINDOW_WIDTH, Config.WINDOW_HEIGHT, null);
+    }
+
+    @Override
+    public void setLayer(int layer) {
+        // ignore
+    }
+
+    @Override
+    public int layer() {
+        return 0;
+    }
+
+    @Override
+    public int compareTo(Renderable o) {
+        return Integer.compare(this.layer(), o.layer());
     }
 }

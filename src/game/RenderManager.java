@@ -5,6 +5,7 @@ import util.Config;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class RenderManager extends Canvas {
@@ -23,6 +24,7 @@ public class RenderManager extends Canvas {
 
     public void add(Renderable go)    {
         this.renderList.add(go);
+        Collections.sort(this.renderList);
     }
 
 

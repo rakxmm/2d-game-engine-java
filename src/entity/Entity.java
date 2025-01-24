@@ -1,4 +1,4 @@
-package tile;
+package entity;
 
 import game.GameObject;
 import game.Renderable;
@@ -11,24 +11,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public abstract class Tile extends GameObject {
+public abstract class Entity extends GameObject {
+
     private Vector2 position;
     private BufferedImage image;
     private int layer;
 
-    @Override
-    public void setImage(String fileName) {
-        try {
-            this.image = ImageIO.read(new File("res/images/" + fileName));
-        } catch (IOException e) {
-            System.out.println("@Tile @setImage, failed to load an image!");
-        }
-    }
-
-    @Override
-    public BufferedImage image() {
-        return this.image;
-    }
 
     @Override
     public void setPosition(Vector2 position) {
@@ -41,14 +29,17 @@ public abstract class Tile extends GameObject {
     }
 
     @Override
-    public int compareTo(Renderable o) {
-        return Integer.compare(this.layer(), o.layer());
+    public void setImage(String fileName) {
+        try {
+            this.image = ImageIO.read(new File("res/images/" + fileName));
+        } catch (IOException e) {
+            System.out.println("@Entity @setImage, failed to load an image!");
+        }
     }
 
     @Override
-    public void render(Graphics2D graphics2D) {
-        graphics2D.drawImage(this.image(), (int)this.position().x() * Config.TILE_SIZE, (int)this.position().y() * Config.TILE_SIZE,
-                Config.TILE_SIZE, Config.TILE_SIZE, null);
+    public BufferedImage image() {
+        return this.image;
     }
 
     @Override
@@ -59,5 +50,16 @@ public abstract class Tile extends GameObject {
     @Override
     public int layer() {
         return this.layer;
+    }
+
+    @Override
+    public int compareTo(Renderable o) {
+        return Integer.compare(this.layer, o.layer());
+    }
+
+    @Override
+    public void render(Graphics2D graphics2D) {
+        graphics2D.drawImage(this.image(), (int)this.position().x() * Config.TILE_SIZE, (int)this.position().y() * Config.TILE_SIZE,
+                Config.TILE_SIZE, Config.TILE_SIZE, null);
     }
 }
