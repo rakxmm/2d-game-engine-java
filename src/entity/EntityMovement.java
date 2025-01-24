@@ -10,5 +10,7 @@ public abstract class EntityMovement implements Moveable {
 
     private EntityDirection direction = EntityDirection.IDLE;
 
+    public EntityMovement(Entity e) {
 
+    }
 }
