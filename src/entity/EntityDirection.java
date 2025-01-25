@@ -1,9 +1,8 @@
 package entity;
 
 public enum EntityDirection {
-    IDLE,
-    LEFT,
-    RIGHT,
+    UP,
     DOWN,
-    UP;
+    RIGHT,
+    LEFT;
 }

@@ -1,6 +1,8 @@
 package game;
 
 
+import util.Camera;
+
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
@@ -14,4 +16,6 @@ public interface Renderable extends Comparable<Renderable> {
     void setLayer(int layer);
 
     int layer();
+
+    void addCamera(Camera camera);
 }

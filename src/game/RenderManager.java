@@ -1,5 +1,6 @@
 package game;
 
+import entity.player.Player;
 import util.Config;
 
 import java.awt.*;
@@ -14,6 +15,7 @@ public class RenderManager extends Canvas {
 
     private List<Renderable> renderList;
     private Graphics2D graphics;
+
 
 
     public RenderManager() {
@@ -39,6 +41,9 @@ public class RenderManager extends Canvas {
         }
 
         this.graphics = (Graphics2D)bs.getDrawGraphics();
+        this.graphics.setColor(Color.BLACK);
+        this.graphics.fillRect(0, 0, Config.WINDOW_WIDTH, Config.WINDOW_HEIGHT);
+
 
         for (Renderable r : this.renderList) {
             r.render(this.graphics);

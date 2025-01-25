@@ -14,8 +14,11 @@ import java.io.IOException;
 public abstract class Entity extends GameObject {
 
     private Vector2 position;
+    private Vector2 gridPosition;
+
     private BufferedImage image;
     private int layer;
+
 
 
     @Override
@@ -58,8 +61,14 @@ public abstract class Entity extends GameObject {
     }
 
     @Override
-    public void render(Graphics2D graphics2D) {
-        graphics2D.drawImage(this.image(), (int)this.position().x() * Config.TILE_SIZE, (int)this.position().y() * Config.TILE_SIZE,
-                Config.TILE_SIZE, Config.TILE_SIZE, null);
+    public void setGridPosition(Vector2 position) {
+        this.gridPosition = position;
+        this.position = new Vector2(this.gridPosition.x() * Config.TILE_SIZE, this.gridPosition.y() * Config.TILE_SIZE);
     }
+
+    @Override
+    public Vector2 gridPosition() {
+        return this.gridPosition;
+    }
+
 }

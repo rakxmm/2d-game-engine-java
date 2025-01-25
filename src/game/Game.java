@@ -1,9 +1,12 @@
 package game;
 
+
 import entity.player.Player;
 import tile.TileMap;
+import util.Camera;
 import util.Config;
 import util.InputManager;
+
 
 public class Game {
 
@@ -12,18 +15,34 @@ public class Game {
 
     private final TileMap tileMap;
     private final Player player;
+
     private final InputManager inputManager;
+
+    private final Camera camera;
 
     public Game() {
         this.window = new Window();
-        this.renderManager = new RenderManager();
         this.inputManager = new InputManager();
+
+        this.camera = new Camera();
+
+
+
+        this.renderManager = new RenderManager();
         this.renderManager.addKeyListener(this.inputManager);
 
-        this.tileMap = new TileMap();
         this.player = new Player();
-        this.player.addInputManager(this.inputManager);
+        this.player.addCamera(this.camera);
+        this.camera.addPlayer(this.player);
 
+        this.tileMap = new TileMap();
+        this.tileMap.addCamera(this.camera);
+        this.tileMap.loadMap();
+        this.tileMap.update();
+
+
+
+        this.inputManager.addMoveable(this.player);
 
 
         this.renderManager.add(this.player);
@@ -44,7 +63,9 @@ public class Game {
     }
 
     private void logic() {
-        this.player.move();
+        if (this.player.move()) {
+            this.tileMap.update();
+        }
     }
 
     private void gameLoop() {

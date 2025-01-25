@@ -9,9 +9,20 @@ public class Vector2 {
         this.y = y;
     }
 
-    public void add(Vector2 vector) {
+    public Vector2 add(Vector2 vector) {
         this.x += vector.x();
         this.y += vector.y();
+        return new Vector2(this.x, this.y);
+    }
+
+    public Vector2 addX(double x) {
+        this.x += x;
+        return new Vector2(this.x, this.y);
+    }
+
+    public Vector2 addY(double y) {
+        this.y += y;
+        return new Vector2(this.x, this.y);
     }
 
     public boolean equals(Vector2 v) {
@@ -26,5 +37,10 @@ public class Vector2 {
     }
     public double y() {
         return this.y;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + this.x + " , " + this.y + "]";
     }
 }
