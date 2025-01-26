@@ -30,4 +30,7 @@ public class Config {
 
 
     public static final int PLAYER_SPEED = 4;
+
+
+    public static final String pathToImages = "res/images/";
 }

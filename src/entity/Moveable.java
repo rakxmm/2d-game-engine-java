@@ -21,4 +21,6 @@ public interface Moveable {
 
     EntityDirection direction();
 
+    boolean isMoving();
+
 }

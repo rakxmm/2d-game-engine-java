@@ -72,6 +72,9 @@ public class Game {
         long lastTime = System.nanoTime();
         double deltaTime = 0;
         double timer = 0;
+        double animationTimer = 0;
+
+
 
         int fps = 0;
         int ticks = 0;
@@ -80,6 +83,10 @@ public class Game {
             long currentTime = System.nanoTime();
             deltaTime += currentTime - lastTime;
             timer += currentTime - lastTime;
+
+
+
+
 
             while (deltaTime >= Config.ONE_TICK) {
                 deltaTime -= Config.ONE_TICK;
@@ -93,6 +100,15 @@ public class Game {
                 ticks = 0;
                 timer -= Config.SECOND;
             }
+
+            if (this.player.isMoving()) {
+                animationTimer += currentTime - lastTime;
+                if (animationTimer >= (double)Config.SECOND / 6) {
+                    this.player.updateFrame();
+                    animationTimer -= (double)Config.SECOND / 6;
+                }
+            }
+
 
             fps++;
             this.renderManager.render();
