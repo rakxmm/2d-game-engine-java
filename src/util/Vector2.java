@@ -25,6 +25,10 @@ public class Vector2 {
         return new Vector2(this.x, this.y);
     }
 
+    public Vector2 diff(Vector2 vector) {
+        return new Vector2(Math.abs(this.x - vector.x()), Math.abs(this.y - vector.y()));
+    }
+
     public boolean equals(Vector2 v) {
         if (this.x == v.x() && this.y == v.y()) {
             return true;

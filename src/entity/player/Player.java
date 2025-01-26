@@ -23,7 +23,7 @@ public class Player extends Entity implements Moveable {
     private EntityDirection direction;
 
     public Player() {
-        this.setSpeed(4);
+        this.setSpeed(Config.PLAYER_SPEED);
         this.setLayer(1);
         this.setImage("character_16x16.png");
         this.setGridPosition(new Vector2(0, 0));
@@ -33,18 +33,32 @@ public class Player extends Entity implements Moveable {
 
     @Override
     public boolean move() {
+
+
         if (this.down) {
-            this.setDirection(EntityDirection.DOWN);
-            this.setPosition(this.position().addY(this.speed));
+            if (this.gridPosition().y() + 1 < Config.TILES_PER_HEIGHT) {
+                this.setDirection(EntityDirection.DOWN);
+                this.setPosition(this.position().addY(this.speed));
+            }
+
         } else if (this.up) {
-            this.setDirection(EntityDirection.UP);
-            this.setPosition(this.position().addY(-this.speed));
+            if (this.gridPosition().y() > 0) {
+                this.setDirection(EntityDirection.UP);
+                this.setPosition(this.position().addY(-this.speed));
+            }
+
         } else if (this.left) {
-            this.setDirection(EntityDirection.LEFT);
-            this.setPosition(this.position().addX(-this.speed));
+            if (this.gridPosition().x() > 0) {
+                this.setDirection(EntityDirection.LEFT);
+                this.setPosition(this.position().addX(-this.speed));
+            }
+
         } else if (this.right) {
-            this.setDirection(EntityDirection.RIGHT);
-            this.setPosition(this.position().addX(this.speed));
+            if (this.gridPosition().x() + 1 < Config.TILES_PER_WIDTH) {
+                this.setDirection(EntityDirection.RIGHT);
+                this.setPosition(this.position().addX(this.speed));
+            }
+
         } else {
             return false;
         }
@@ -93,8 +107,8 @@ public class Player extends Entity implements Moveable {
 
     @Override
     public void render(Graphics2D graphics2D) {
-        graphics2D.drawImage(this.image(), (int)this.position().x() - (int)this.camera.getPlayerOffset().x(),
-                (int)this.position().y() - (int)this.camera.getPlayerOffset().y(),
+        graphics2D.drawImage(this.image(), (int)this.position().x() - (int)this.camera.getPlayerOffsetX(),
+                (int)this.position().y() - (int)this.camera.getPlayerOffsetY(),
                 Config.TILE_SIZE, Config.TILE_SIZE, null);
     }
 

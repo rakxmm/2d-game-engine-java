@@ -98,6 +98,13 @@ public class Game {
             this.renderManager.render();
 
             lastTime = currentTime;
+
+//            try {
+//                Thread.sleep(1);
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
+
         }
     }
 

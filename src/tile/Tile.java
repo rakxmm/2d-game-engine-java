@@ -55,19 +55,15 @@ public abstract class Tile extends GameObject {
 
     @Override
     public void render(Graphics2D graphics2D) {
-        if (Math.abs(this.camera.getDistanceFromPlayer(this).x()) <= (double)Config.WINDOW_WIDTH / 4
-                && Math.abs(this.camera.getDistanceFromPlayer(this).y()) <= (double)Config.WINDOW_HEIGHT / 4) {
-            this.visible = true;
-        } else {
-            this.visible = false;
+        int x  = (int)this.position().x() - (int)this.camera.getPlayerOffsetX();
+        int y = (int)this.position().y() - (int)this.camera.getPlayerOffsetY();
+
+        if (x + Config.TILE_SIZE < 0 || x > Config.WINDOW_WIDTH || y + Config.TILE_SIZE < 0 || y > Config.WINDOW_HEIGHT) {
+            return;
         }
 
-        if (this.visible) {
-
-            graphics2D.drawImage(this.image(), (int)this.position().x() - (int)this.camera.getPlayerOffset().x(),
-                    (int)this.position().y() - (int)this.camera.getPlayerOffset().y(),
-                    Config.TILE_SIZE, Config.TILE_SIZE, null);
-        }
+        graphics2D.drawImage(this.image(), x, y,
+                Config.TILE_SIZE, Config.TILE_SIZE, null);
 
     }
 

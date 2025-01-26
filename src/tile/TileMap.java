@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class TileMap implements Renderable {
@@ -16,8 +17,10 @@ public class TileMap implements Renderable {
     private BufferedImage image;
     private List<Tile> map;
     private Camera camera;
+    private int layer;
 
     public TileMap() {
+        this.setLayer(0);
         this.image = new BufferedImage(Config.WINDOW_WIDTH, Config.WINDOW_HEIGHT, 1);
         this.map = new ArrayList<>();
     }
@@ -34,8 +37,11 @@ public class TileMap implements Renderable {
 
     public void update() {
         Graphics2D g = this.image.createGraphics();
-        g.setColor(Color.BLACK);
+        g.setColor(Color.white);
         g.fillRect(0, 0, Config.WINDOW_WIDTH, Config.WINDOW_HEIGHT);
+        Collections.sort(this.map);
+
+
         for (Tile t : this.map) {
             t.render(g);
         }
@@ -58,12 +64,12 @@ public class TileMap implements Renderable {
 
     @Override
     public void setLayer(int layer) {
-        // ignore
+        this.layer = layer;
     }
 
     @Override
     public int layer() {
-        return 0;
+        return this.layer;
     }
 
     @Override

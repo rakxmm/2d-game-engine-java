@@ -3,8 +3,12 @@ package game;
 import entity.player.Player;
 import util.Config;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -20,7 +24,7 @@ public class RenderManager extends Canvas {
 
     public RenderManager() {
         this.renderList = new ArrayList<>();
-        this.setBounds(0, 0, Config.WINDOW_WIDTH, Config.WINDOW_HEIGHT);
+        this.setPreferredSize(new Dimension(Config.WINDOW_WIDTH, Config.WINDOW_HEIGHT));
         this.setVisible(true);
     }
 
@@ -41,8 +45,7 @@ public class RenderManager extends Canvas {
         }
 
         this.graphics = (Graphics2D)bs.getDrawGraphics();
-        this.graphics.setColor(Color.BLACK);
-        this.graphics.fillRect(0, 0, Config.WINDOW_WIDTH, Config.WINDOW_HEIGHT);
+
 
 
         for (Renderable r : this.renderList) {

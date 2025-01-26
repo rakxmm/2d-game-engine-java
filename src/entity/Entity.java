@@ -24,6 +24,7 @@ public abstract class Entity extends GameObject {
     @Override
     public void setPosition(Vector2 position) {
         this.position = position;
+        this.gridPosition = new Vector2(position.x() / Config.TILE_SIZE, position.y() / Config.TILE_SIZE);
     }
 
     @Override
