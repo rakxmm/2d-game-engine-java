@@ -134,7 +134,7 @@ public class Player extends Entity implements Moveable, Animatable {
     public void render(Graphics2D graphics2D) {
         graphics2D.drawImage(this.image(), (int)this.position().x() - (int)this.camera.getPlayerOffsetX(),
                 (int)this.position().y() - (int)this.camera.getPlayerOffsetY(),
-                Config.TILE_SIZE, Config.TILE_SIZE, null);
+                this.image().getWidth(), this.image().getHeight(), null);
     }
 
     @Override
@@ -146,16 +146,19 @@ public class Player extends Entity implements Moveable, Animatable {
     @Override
     public void loadFrames() {
         this.leftFrames = new BufferedImage[2];
-        this.rightFrames = new BufferedImage[2];
+        this.rightFrames = new BufferedImage[3];
         this.upFrames = new BufferedImage[1];
         this.downFrames = new BufferedImage[2];
 
         try {
+
+
+            this.rightFrames[0] = ImageIO.read(new File(Config.pathToImages + "r1.png"));
+            this.rightFrames[1] = ImageIO.read(new File(Config.pathToImages + "r2.png"));
+            this.rightFrames[2] = ImageIO.read(new File(Config.pathToImages + "r3.png"));
+
             this.leftFrames[0] = ImageIO.read(new File(Config.pathToImages + "left_1.png"));
             this.leftFrames[1] = ImageIO.read(new File(Config.pathToImages + "left_2.png"));
-
-            this.rightFrames[0] = ImageIO.read(new File(Config.pathToImages + "right_1.png"));
-            this.rightFrames[1] = ImageIO.read(new File(Config.pathToImages + "right_2.png"));
 
             this.upFrames[0] = ImageIO.read(new File(Config.pathToImages + "up_1.png"));
 

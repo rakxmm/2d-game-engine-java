@@ -2,8 +2,10 @@ package util;
 
 public class Config {
 
-    private static final int TILE_SCALE = 2;
-    private static final int DEFAULT_TILE_SIZE = 16;
+    private static final int TILE_SCALE = 1;
+    private static final int DEFAULT_TILE_SIZE = 32;
+
+    public static final int PLAYER_SIZE = 64;
 
     public static final int TILE_SIZE = DEFAULT_TILE_SIZE * TILE_SCALE;
 
