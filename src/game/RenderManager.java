@@ -40,7 +40,7 @@ public class RenderManager extends Canvas {
 
         if (bs == null) {
             System.out.println("Creating buffer strategy!");
-            this.createBufferStrategy(3);
+            this.createBufferStrategy(2);
             return;
         }
 

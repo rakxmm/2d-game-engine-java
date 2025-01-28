@@ -44,8 +44,8 @@ public class Player extends Entity implements Moveable, Animatable {
         this.setGridPosition(new Vector2(0, 0));
     }
 
+    @Override
     public void updateFrame() {
-        System.out.println("Frame updated!");
         this.frame++;
     }
 
@@ -134,7 +134,7 @@ public class Player extends Entity implements Moveable, Animatable {
     public void render(Graphics2D graphics2D) {
         graphics2D.drawImage(this.image(), (int)this.position().x() - (int)this.camera.getPlayerOffsetX(),
                 (int)this.position().y() - (int)this.camera.getPlayerOffsetY(),
-                this.image().getWidth(), this.image().getHeight(), null);
+                Config.PLAYER_SIZE, Config.PLAYER_SIZE, null);
     }
 
     @Override

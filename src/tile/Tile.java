@@ -58,13 +58,20 @@ public abstract class Tile extends GameObject {
         int x  = (int)this.position().x() - (int)this.camera.getPlayerOffsetX();
         int y = (int)this.position().y() - (int)this.camera.getPlayerOffsetY();
 
-        if (x + Config.TILE_SIZE < 0 || x > Config.WINDOW_WIDTH || y + Config.TILE_SIZE < 0 || y > Config.WINDOW_HEIGHT) {
-            return;
-        }
 
         graphics2D.drawImage(this.image(), x, y,
                 Config.TILE_SIZE, Config.TILE_SIZE, null);
 
+    }
+
+    public boolean isVisible() {
+        int x  = (int)this.position().x() - (int)this.camera.getPlayerOffsetX();
+        int y = (int)this.position().y() - (int)this.camera.getPlayerOffsetY();
+
+        if (x + Config.TILE_SIZE < 0 || x > Config.WINDOW_WIDTH || y + Config.TILE_SIZE < 0 || y > Config.WINDOW_HEIGHT) {
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -86,7 +93,6 @@ public abstract class Tile extends GameObject {
     public Vector2 gridPosition() {
         return this.gridPosition;
     }
-
     @Override
     public void setGridPosition(Vector2 gridPosition) {
         this.gridPosition = gridPosition;

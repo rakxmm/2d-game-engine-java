@@ -4,6 +4,7 @@ import game.GameObject;
 import game.Renderable;
 import util.Camera;
 import util.Config;
+import util.Vector2;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -15,14 +16,24 @@ import java.util.List;
 public class TileMap implements Renderable {
 
     private BufferedImage image;
-    private List<Tile> map;
+    private Tile[][] map;
+    private Tile[][] renderingMap;
     private Camera camera;
     private int layer;
+    private Graphics2D graphics2D;
+
+    private int minX = 0;
+    private int maxX = 0;
+    private int minY = 0;
+    private int maxY = 0;
 
     public TileMap() {
+
         this.setLayer(0);
         this.image = new BufferedImage(Config.WINDOW_WIDTH, Config.WINDOW_HEIGHT, 1);
-        this.map = new ArrayList<>();
+        this.graphics2D = this.image.createGraphics();
+        this.map = new Tile[Config.TILES_PER_HEIGHT][Config.TILES_PER_WIDTH];
+        this.renderingMap = new Tile[Config.TILES_PER_SCREEN_HEIGHT][Config.TILES_PER_SCREEN_WIDTH];
     }
 
     public void loadMap() {
@@ -30,20 +41,60 @@ public class TileMap implements Renderable {
             for (int j = 0; j < Config.TILES_PER_WIDTH; j++) {
                 Tile tile = new TileGrass(j, i);
                 tile.addCamera(this.camera);
-                this.map.add(tile);
+                this.map[i][j] = tile;
+
             }
         }
     }
 
+    public void updateRendering(Vector2 playerGridPosition) {
+        if ((int)playerGridPosition.x() < Config.TILES_PER_SCREEN_WIDTH / 2) {
+            this.minX = 0;
+            this.maxX = Config.TILES_PER_SCREEN_WIDTH;
+        } else if (Config.TILES_PER_WIDTH - (int)playerGridPosition.x() < Config.TILES_PER_SCREEN_WIDTH / 2) {
+            this.minX = Config.TILES_PER_WIDTH - Config.TILES_PER_SCREEN_WIDTH;
+            this.maxX = Config.TILES_PER_WIDTH;
+        } else {
+            this.minX = (int)playerGridPosition.x() - Config.TILES_PER_SCREEN_WIDTH / 2;
+            this.maxX = (int)playerGridPosition.x() + Config.TILES_PER_SCREEN_WIDTH / 2 + 1;
+
+            if ((int)playerGridPosition.x() > Config.TILES_PER_SCREEN_WIDTH / 2) {
+                this.minX -= 1;
+            }
+        }
+
+        if (Config.TILES_PER_HEIGHT - (int)playerGridPosition.y() < Config.TILES_PER_SCREEN_HEIGHT / 2) {
+            this.minY = Config.TILES_PER_HEIGHT - Config.TILES_PER_SCREEN_HEIGHT;
+            this.maxY = Config.TILES_PER_HEIGHT;
+        } else if ((int)playerGridPosition.y() < Config.TILES_PER_SCREEN_HEIGHT / 2) {
+            this.minY = 0;
+            this.maxY = Config.TILES_PER_SCREEN_HEIGHT;
+        } else {
+
+            this.minY = (int)playerGridPosition.y() - Config.TILES_PER_SCREEN_HEIGHT / 2;
+            this.maxY = (int)playerGridPosition.y() + Config.TILES_PER_SCREEN_HEIGHT / 2 + 1;
+
+            if ((int)playerGridPosition.y() > Config.TILES_PER_SCREEN_HEIGHT / 2) {
+                this.minY -= 1;
+            }
+
+        }
+
+
+
+    }
+
+
     public void update() {
-        Graphics2D g = this.image.createGraphics();
-        g.setColor(Color.white);
-        g.fillRect(0, 0, Config.WINDOW_WIDTH, Config.WINDOW_HEIGHT);
-        Collections.sort(this.map);
+
+        this.graphics2D.setColor(Color.white);
+        this.graphics2D.fillRect(0, 0, Config.WINDOW_WIDTH, Config.WINDOW_HEIGHT);
 
 
-        for (Tile t : this.map) {
-            t.render(g);
+        for (int i = this.minY; i < this.maxY; i++) {
+            for (int j = this.minX; j < this.maxX; j++) {
+                this.map[i][j].render(this.graphics2D);
+            }
         }
     }
 

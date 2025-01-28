@@ -20,6 +20,9 @@ public class Game {
 
     private final Camera camera;
 
+    private Thread logicThread;
+    private Thread updateRenderingThread;
+
     public Game() {
         this.window = new Window();
         this.inputManager = new InputManager();
@@ -38,6 +41,8 @@ public class Game {
         this.tileMap = new TileMap();
         this.tileMap.addCamera(this.camera);
         this.tileMap.loadMap();
+
+        this.tileMap.updateRendering(this.player.gridPosition());
         this.tileMap.update();
 
 
@@ -63,6 +68,7 @@ public class Game {
     }
 
     private void logic() {
+        this.tileMap.updateRendering(this.player.gridPosition());
         if (this.player.move()) {
             this.tileMap.update();
         }
@@ -92,7 +98,12 @@ public class Game {
                 deltaTime -= Config.ONE_TICK;
                 ticks++;
                 this.logic();
+
+
+
             }
+
+
 
             if (timer >= Config.SECOND) {
                 System.out.println("FPS: " + fps + " || TICKS: " + ticks);
@@ -101,13 +112,7 @@ public class Game {
                 timer -= Config.SECOND;
             }
 
-            if (this.player.isMoving()) {
-                animationTimer += currentTime - lastTime;
-                if (animationTimer >= (double)Config.SECOND / 6) {
-                    this.player.updateFrame();
-                    animationTimer -= (double)Config.SECOND / 6;
-                }
-            }
+
 
 
             fps++;
@@ -115,11 +120,11 @@ public class Game {
 
             lastTime = currentTime;
 
-//            try {
-//                Thread.sleep(1);
-//            } catch (InterruptedException e) {
-//                throw new RuntimeException(e);
-//            }
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
 
         }
     }

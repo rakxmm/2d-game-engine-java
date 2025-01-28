@@ -2,10 +2,10 @@ package util;
 
 public class Config {
 
-    private static final int TILE_SCALE = 1;
-    private static final int DEFAULT_TILE_SIZE = 32;
+    private static final int TILE_SCALE = 2;
+    private static final int DEFAULT_TILE_SIZE = 16;
 
-    public static final int PLAYER_SIZE = 64;
+    public static final int PLAYER_SIZE = 32;
 
     public static final int TILE_SIZE = DEFAULT_TILE_SIZE * TILE_SCALE;
 
@@ -17,6 +17,8 @@ public class Config {
 
     public static final int TILES_PER_WIDTH = 60;
     public static final int TILES_PER_HEIGHT = 50;
+    public static final int TILES_PER_SCREEN_WIDTH = WINDOW_WIDTH / TILE_SIZE;
+    public static final int TILES_PER_SCREEN_HEIGHT = WINDOW_HEIGHT / TILE_SIZE;
 
 
     public static final int SCREEN_MIN = 0;
