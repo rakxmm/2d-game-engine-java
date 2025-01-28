@@ -1,66 +1,25 @@
 package game;
 
 
-import entity.player.Player;
-import tile.TileMap;
-import util.Camera;
 import util.Config;
-import util.InputManager;
 
+import javax.swing.*;
 
-public class Game {
+public class Game extends JFrame {
 
-    private final RenderManager renderManager;
-    private final Window window;
-
-    private final TileMap tileMap;
-    private final Player player;
-
-    private final InputManager inputManager;
-
-    private final Camera camera;
-
-    private Thread logicThread;
-    private Thread updateRenderingThread;
+    private RenderManager rm;
 
     public Game() {
-        this.window = new Window();
-        this.inputManager = new InputManager();
 
-        this.camera = new Camera();
+        this.setResizable(false);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+        this.rm = new RenderManager();
+        this.add(rm);
+        this.pack();
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
 
-
-        this.renderManager = new RenderManager();
-        this.renderManager.addKeyListener(this.inputManager);
-
-        this.player = new Player();
-        this.player.addCamera(this.camera);
-        this.camera.addPlayer(this.player);
-
-        this.tileMap = new TileMap();
-        this.tileMap.addCamera(this.camera);
-        this.tileMap.loadMap();
-
-        this.tileMap.updateRendering(this.player.gridPosition());
-        this.tileMap.update();
-
-
-
-        this.inputManager.addMoveable(this.player);
-
-
-        this.renderManager.add(this.player);
-        this.renderManager.add(this.tileMap);
-
-
-        this.window.add(this.renderManager);
-
-
-
-        this.window.pack();
-        this.window.setLocationRelativeTo(null);
-        this.window.setVisible(true);
     }
 
     public void start() {
@@ -68,19 +27,13 @@ public class Game {
     }
 
     private void logic() {
-        this.tileMap.updateRendering(this.player.gridPosition());
-        if (this.player.move()) {
-            this.tileMap.update();
-        }
+
     }
 
     private void gameLoop() {
         long lastTime = System.nanoTime();
         double deltaTime = 0;
         double timer = 0;
-        double animationTimer = 0;
-
-
 
         int fps = 0;
         int ticks = 0;
@@ -91,41 +44,26 @@ public class Game {
             timer += currentTime - lastTime;
 
 
-
-
-
-            while (deltaTime >= Config.ONE_TICK) {
-                deltaTime -= Config.ONE_TICK;
+            while (deltaTime >= Config.TICK) {
+                deltaTime -= Config.TICK;
                 ticks++;
                 this.logic();
 
-
-
             }
 
 
-
-            if (timer >= Config.SECOND) {
+            if (timer >= 1_000_000_000) {
                 System.out.println("FPS: " + fps + " || TICKS: " + ticks);
                 fps = 0;
                 ticks = 0;
-                timer -= Config.SECOND;
+                timer -= 1_000_000_000;
             }
 
 
-
-
+            this.rm.render();
             fps++;
-            this.renderManager.render();
 
             lastTime = currentTime;
-
-            try {
-                Thread.sleep(1);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-
         }
     }
 

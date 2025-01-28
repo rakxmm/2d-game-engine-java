@@ -1,40 +1,23 @@
 package util;
 
+import java.awt.*;
+
 public class Config {
 
-    private static final int TILE_SCALE = 2;
-    private static final int DEFAULT_TILE_SIZE = 16;
-
-    public static final int PLAYER_SIZE = 32;
-
-    public static final int TILE_SIZE = DEFAULT_TILE_SIZE * TILE_SCALE;
-
-    public static final int WINDOW_WIDTH = 1280;
-    public static final int WINDOW_HEIGHT = 704;
-
-
-
+    // Dimensions //////////////////////////////////////////////////////////////////////////////////////////////////////
+    public static final Dimension CANVAS_DIMENSION = new Dimension(1920, 1024);
 
     public static final int TILES_PER_WIDTH = 60;
-    public static final int TILES_PER_HEIGHT = 50;
-    public static final int TILES_PER_SCREEN_WIDTH = WINDOW_WIDTH / TILE_SIZE;
-    public static final int TILES_PER_SCREEN_HEIGHT = WINDOW_HEIGHT / TILE_SIZE;
+    public static final int TILES_PER_HEIGHT = 32;
+
+    // Time ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public static final int TICK_RATE = 60;
+    public static final int TICK = 1_000_000_000 / 60;
+
+    // Tile ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    private static final int DEF_TILE_SIZE = 32;
+    private static final int TILE_SCALE = 2;
+    public static final int TILE_SIZE = DEF_TILE_SIZE * TILE_SCALE;
 
 
-    public static final int SCREEN_MIN = 0;
-    public static final int SCREEN_MAX_H = TILES_PER_HEIGHT * TILE_SIZE;
-    public static final int SCREEN_MAX_W = TILES_PER_WIDTH * TILE_SIZE;
-
-
-    public static final int TICK_LOCK = 60;
-    public static final double ONE_TICK = 1_000_000_000.0 / Config.TICK_LOCK;
-    public static final int SECOND = 1_000_000_000;
-
-    public static final int LAYER_MAX = 10;
-
-
-    public static final int PLAYER_SPEED = 4;
-
-
-    public static final String pathToImages = "res/images/";
 }
