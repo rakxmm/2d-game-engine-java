@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public final class ImageLoader {
+public class ImageLoader {
 
     private static final Map<String, BufferedImage> imageMap = new HashMap<>();
 
