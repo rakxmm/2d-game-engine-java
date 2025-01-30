@@ -1,19 +1,29 @@
 package game;
 
 
+import renderable.entity.player.Player;
 import tilemap.TileMap;
+import util.Camera;
 import util.Config;
+import util.Vector2;
 
+import javax.sql.rowset.serial.SQLInputImpl;
 import javax.swing.*;
 
 public class Game extends JFrame {
 
     private RenderManager rm;
-    private InputManager im;
     private TileMap tileMap;
 
+    private InputManager im;
+
+    private Player p;
+
     public Game() {
-        this.im = new InputManager(this);
+        this.im = new InputManager();
+
+        this.im.addGame(this);
+
         this.tileMap = new TileMap();
 
 
@@ -21,8 +31,27 @@ public class Game extends JFrame {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         this.rm = new RenderManager();
-        this.rm.addMouseMotionListener(this.im);
+        this.rm.addKeyListener(this.im);
         this.rm.setTileMap(this.tileMap);
+
+
+
+
+        this.p = new Player();
+        this.p.setDefaultPosition(new Vector2(2, 2));
+        this.rm.add(this.p);
+        this.im.setMoveable(this.p);
+
+        Camera.lock(this.p);
+
+
+
+
+
+
+
+
+
         this.add(rm);
         this.pack();
         this.setLocationRelativeTo(null);
@@ -35,6 +64,29 @@ public class Game extends JFrame {
     }
 
     private void logic() {
+        if (Camera.isLocked()) {
+            Camera.update();
+        }
+
+        if (this.im.mousePosition() != null && !Camera.isLocked()) {
+
+            if (this.im.mousePosition().x() < Config.CANVAS_DIMENSION.width / 7) {
+                Camera.move(new Vector2(-Config.CAMERA_SPEED, 0));
+            } else if (this.im.mousePosition().x() > Config.CANVAS_DIMENSION.width * 6 / 7) {
+                Camera.move(new Vector2(Config.CAMERA_SPEED, 0));
+            }
+
+            if (this.im.mousePosition().y() < Config.CANVAS_DIMENSION.height / 7) {
+                Camera.move(new Vector2(0, -Config.CAMERA_SPEED));
+            } else if (this.im.mousePosition().y() > Config.CANVAS_DIMENSION.height * 6 / 7) {
+                Camera.move(new Vector2(0, Config.CAMERA_SPEED));
+            }
+        }
+
+
+
+
+        this.p.update();
         this.tileMap.update();
     }
 

@@ -16,20 +16,16 @@ public class Vector2 {
     }
 
 
-    public Vector2 addX(int x) {
-        int v1 = this.x + x;
-        int v2 = this.y;
-        return new Vector2(v1, v2);
+    public void addX(int x) {
+        this.x += x;
     }
 
-    public Vector2 addY(int y) {
-        int v1 = this.x;
-        int v2 = this.y + y;
-        return new Vector2(v1, v2);
+    public void addY(int y) {
+        this.y += y;
     }
 
     public Vector2 diff(Vector2 vector) {
-        return new Vector2(Math.abs(this.x - vector.x()), Math.abs(this.y - vector.y()));
+        return new Vector2(this.x - vector.x(), this.y - vector.y());
     }
 
     public boolean equals(Vector2 v) {

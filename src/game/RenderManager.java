@@ -3,6 +3,7 @@ package game;
 import renderable.Renderable;
 import renderable.tile.TileBlock;
 import tilemap.TileMap;
+import util.Camera;
 import util.Config;
 
 
@@ -48,7 +49,14 @@ public class RenderManager extends Canvas {
             r.render(this.graphics);
         }
 
+        this.graphics.setColor(Color.green);
+//        this.graphics.drawRect(0, 0, Config.CANVAS_DIMENSION.width / 3, Config.CANVAS_DIMENSION.height);
+//        this.graphics.drawRect(Config.CANVAS_DIMENSION.width  * 2 / 3, 0, Config.CANVAS_DIMENSION.width / 3, Config.CANVAS_DIMENSION.height);
+//        this.graphics.drawRect(0, 0, Config.CANVAS_DIMENSION.width, Config.CANVAS_DIMENSION.height / 3);
+//        this.graphics.drawRect(0, Config.CANVAS_DIMENSION.height * 2 / 3, Config.CANVAS_DIMENSION.width, Config.CANVAS_DIMENSION.height / 3);
+        this.graphics.drawLine(0, Config.CANVAS_DIMENSION.height / 2, Config.CANVAS_DIMENSION.width, Config.CANVAS_DIMENSION.height / 2);
 
+        Camera.render(this.graphics);
         this.showFPS();
         this.graphics.dispose();
         bs.show();

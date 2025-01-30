@@ -34,9 +34,10 @@ public class TileMap {
                         int y = this.getGridPosition().y() * Config.TILE_SIZE;
                         this.setPosition(new Vector2(x, y));
 
-                        System.out.println(Camera.offX(this) + " " + Camera.offY(this) + " " +  Camera.getPosition());
-                        g.drawRect(Camera.getPosition().x() - Camera.offX(this), Camera.getPosition().y() - Camera.offY(this), Config.TILE_SIZE, Config.TILE_SIZE);
-
+                        if (this.getGridPosition().y() == 0 || this.getGridPosition().y() == Config.TILES_PER_HEIGHT - 1 || this.getGridPosition().x() == 0 || this.getGridPosition().x() == Config.TILES_PER_WIDTH - 1) {
+                            g.setColor(Color.pink);
+                        }
+                        g.drawRect(this.getGridPosition().x() * Config.TILE_SIZE - Camera.getPosition().x(), this.getGridPosition().y() * Config.TILE_SIZE - Camera.getPosition().y(), Config.TILE_SIZE, Config.TILE_SIZE);
                     }
                 };
                 this.map[i][j].render(this.graphics);
@@ -50,7 +51,7 @@ public class TileMap {
         this.graphics.fillRect(0, 0, Config.CANVAS_DIMENSION.width, Config.CANVAS_DIMENSION.height);
 
         for (int i = 0; i < Config.TILES_PER_HEIGHT; i++) {
-            for (int j = 0; j < Config.TILES_PER_HEIGHT; j++) {
+            for (int j = 0; j < Config.TILES_PER_WIDTH; j++) {
                 this.map[i][j].render(this.graphics);
             }
         }
