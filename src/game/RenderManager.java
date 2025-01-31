@@ -10,6 +10,7 @@ import util.Config;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class RenderManager extends Canvas {
@@ -45,18 +46,16 @@ public class RenderManager extends Canvas {
 
         this.graphics.drawImage(this.tileMap.getFrame(), 0, 0, Config.CANVAS_DIMENSION.width, Config.CANVAS_DIMENSION.height, null);
 
+        Collections.sort(this.renderableList);
         for (Renderable r : this.renderableList) {
             r.render(this.graphics);
         }
 
         this.graphics.setColor(Color.green);
-//        this.graphics.drawRect(0, 0, Config.CANVAS_DIMENSION.width / 3, Config.CANVAS_DIMENSION.height);
-//        this.graphics.drawRect(Config.CANVAS_DIMENSION.width  * 2 / 3, 0, Config.CANVAS_DIMENSION.width / 3, Config.CANVAS_DIMENSION.height);
-//        this.graphics.drawRect(0, 0, Config.CANVAS_DIMENSION.width, Config.CANVAS_DIMENSION.height / 3);
-//        this.graphics.drawRect(0, Config.CANVAS_DIMENSION.height * 2 / 3, Config.CANVAS_DIMENSION.width, Config.CANVAS_DIMENSION.height / 3);
         this.graphics.drawLine(0, Config.CANVAS_DIMENSION.height / 2, Config.CANVAS_DIMENSION.width, Config.CANVAS_DIMENSION.height / 2);
+        this.graphics.drawLine(Config.CANVAS_DIMENSION.width / 2 ,0, Config.CANVAS_DIMENSION.width / 2, Config.CANVAS_DIMENSION.height);
 
-        Camera.render(this.graphics);
+
         this.showFPS();
         this.graphics.dispose();
         bs.show();
@@ -69,4 +68,6 @@ public class RenderManager extends Canvas {
         this.graphics.setColor(Color.red);
         this.graphics.drawString("FPS: " + FPSCounter.get(), 0, 20);
     }
+
+
 }

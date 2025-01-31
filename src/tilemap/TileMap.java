@@ -1,12 +1,12 @@
 package tilemap;
 
 import renderable.tile.Tile;
+import renderable.tile.TileBlock;
 import renderable.tile.TileEmpty;
-import util.Camera;
 import util.Config;
-import util.Vector2;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 public class TileMap {
@@ -25,21 +25,12 @@ public class TileMap {
     private void init() {
         for (int i = 0; i < Config.TILES_PER_HEIGHT; i++) {
             for (int j = 0; j < Config.TILES_PER_WIDTH; j++) {
-                this.map[i][j] = new Tile(j, i) {
-                    @Override
-                    public void render(Graphics2D g) {
-                        g.setColor(new Color(255, 0, 0, 255));
+                if (i == 0 || j == 0 || i == Config.TILES_PER_HEIGHT - 1 || j == Config.TILES_PER_WIDTH - 1) {
+                    this.map[i][j] = new TileBlock(j, i);
+                } else {
+                    this.map[i][j] = new TileEmpty(j, i);
+                }
 
-                        int x = this.getGridPosition().x() * Config.TILE_SIZE;
-                        int y = this.getGridPosition().y() * Config.TILE_SIZE;
-                        this.setPosition(new Vector2(x, y));
-
-                        if (this.getGridPosition().y() == 0 || this.getGridPosition().y() == Config.TILES_PER_HEIGHT - 1 || this.getGridPosition().x() == 0 || this.getGridPosition().x() == Config.TILES_PER_WIDTH - 1) {
-                            g.setColor(Color.pink);
-                        }
-                        g.drawRect(this.getGridPosition().x() * Config.TILE_SIZE - Camera.getPosition().x(), this.getGridPosition().y() * Config.TILE_SIZE - Camera.getPosition().y(), Config.TILE_SIZE, Config.TILE_SIZE);
-                    }
-                };
                 this.map[i][j].render(this.graphics);
 
             }

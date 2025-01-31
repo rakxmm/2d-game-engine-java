@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class ImageLoader {
 
-    private static final Map<String, BufferedImage> imageMap = new HashMap<>();
+    private static final Map<String, BufferedImage> IMAGE_MAP = new HashMap<>();
 
     private ImageLoader() {
     }
@@ -17,17 +17,17 @@ public class ImageLoader {
     private static void loadImage(String fileName) {
         try {
             BufferedImage img = ImageIO.read(new File("res/images/" + fileName));
-            ImageLoader.imageMap.put(fileName, img);
+            ImageLoader.IMAGE_MAP.put(fileName, img);
         } catch (IOException e) {
             System.out.println("Failed to load an image!");;
         }
     }
 
     public static BufferedImage getImage(String fileName) {
-        if (ImageLoader.imageMap.get(fileName) == null) {
+        if (ImageLoader.IMAGE_MAP.get(fileName) == null) {
             ImageLoader.loadImage(fileName);
         }
 
-        return ImageLoader.imageMap.get(fileName);
+        return ImageLoader.IMAGE_MAP.get(fileName);
     }
 }

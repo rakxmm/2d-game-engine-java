@@ -13,6 +13,7 @@ public abstract class Entity implements Renderable {
 
     private Vector2 position;
 
+    private int layer;
 
 
 
@@ -40,5 +41,19 @@ public abstract class Entity implements Renderable {
     @Override
     public Vector2 getPosition() {
         return this.position;
+    }
+
+    @Override
+    public int layer() {
+        return this.layer;
+    }
+
+    public void setLayer(int layer) {
+        this.layer = layer;
+    }
+
+    @Override
+    public int compareTo(Renderable o) {
+        return Integer.compare(this.layer(), o.layer());
     }
 }

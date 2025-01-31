@@ -34,7 +34,7 @@ public class InputManager implements KeyListener {
         int x = point.x - windowLoc.x - 8;
         int y = point.y - windowLoc.y - 32;
 
-        if (x < 0 || x > window.getWidth() || y < 0 || y > window.getHeight()) {
+        if (x < 0 || x > this.window.getWidth() || y < 0 || y > this.window.getHeight()) {
             return null;
         }
         return new Vector2(x, y);
@@ -59,6 +59,9 @@ public class InputManager implements KeyListener {
         if (e.getKeyCode() == KeyEvent.VK_W) {
             this.moveable.up(true);
         }
+        if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+            Camera.getInstance().setLocked(true);
+        }
     }
 
     @Override
@@ -74,6 +77,9 @@ public class InputManager implements KeyListener {
         }
         if (e.getKeyCode() == KeyEvent.VK_W) {
             this.moveable.up(false);
+        }
+        if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+            Camera.getInstance().setLocked(false);
         }
     }
 

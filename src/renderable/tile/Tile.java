@@ -9,7 +9,7 @@ public abstract class Tile implements Renderable {
     private Vector2 gridPosition;
     private Vector2 position;
     private boolean onScreen = false;
-
+    private int layer;
 
     public Tile(int x, int y) {
         this.gridPosition = new Vector2(x, y);
@@ -45,5 +45,19 @@ public abstract class Tile implements Renderable {
 
     @Override
     public void render(Graphics2D g) {
+    }
+
+    @Override
+    public int layer() {
+        return this.layer;
+    }
+
+    public void setLayer(int layer) {
+        this.layer = layer;
+    }
+
+    @Override
+    public int compareTo(Renderable o) {
+        return Integer.compare(this.layer(), o.layer());
     }
 }

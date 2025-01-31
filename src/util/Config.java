@@ -5,7 +5,9 @@ import java.awt.*;
 public class Config {
 
     // Dimensions //////////////////////////////////////////////////////////////////////////////////////////////////////
-    public static final Dimension CANVAS_DIMENSION = new Dimension(1280, 656);
+    public static final int WIDTH = 1280;
+    public static final int HEIGHT = 656;
+    public static final Dimension CANVAS_DIMENSION = new Dimension(WIDTH, HEIGHT);
 
 
     // Tile ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -29,8 +31,8 @@ public class Config {
 
 
     // Speeds //////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public static final int CAMERA_SPEED = 10;
-    public static final int PLAYER_SPEED = 10;
+    public static final int CAMERA_SPEED = 8;
+    public static final int PLAYER_SPEED = 8;
 
 
 }

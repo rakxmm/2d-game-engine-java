@@ -7,7 +7,6 @@ import util.Camera;
 import util.Config;
 import util.Vector2;
 
-import javax.sql.rowset.serial.SQLInputImpl;
 import javax.swing.*;
 
 public class Game extends JFrame {
@@ -18,10 +17,11 @@ public class Game extends JFrame {
     private InputManager im;
 
     private Player p;
+    private Camera camera;
 
     public Game() {
         this.im = new InputManager();
-
+        Camera.getInstance().setInputManager(this.im);
         this.im.addGame(this);
 
         this.tileMap = new TileMap();
@@ -42,17 +42,18 @@ public class Game extends JFrame {
         this.rm.add(this.p);
         this.im.setMoveable(this.p);
 
-        Camera.lock(this.p);
+        CollisionsManager cm = CollisionsManager.getInstance();
+        cm.addCollidable(this.p);
 
 
 
 
+        Camera.getInstance().setFocus(this.p);
 
 
 
 
-
-        this.add(rm);
+        this.add(this.rm);
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
@@ -64,29 +65,14 @@ public class Game extends JFrame {
     }
 
     private void logic() {
-        if (Camera.isLocked()) {
-            Camera.update();
-        }
 
-        if (this.im.mousePosition() != null && !Camera.isLocked()) {
 
-            if (this.im.mousePosition().x() < Config.CANVAS_DIMENSION.width / 7) {
-                Camera.move(new Vector2(-Config.CAMERA_SPEED, 0));
-            } else if (this.im.mousePosition().x() > Config.CANVAS_DIMENSION.width * 6 / 7) {
-                Camera.move(new Vector2(Config.CAMERA_SPEED, 0));
-            }
-
-            if (this.im.mousePosition().y() < Config.CANVAS_DIMENSION.height / 7) {
-                Camera.move(new Vector2(0, -Config.CAMERA_SPEED));
-            } else if (this.im.mousePosition().y() > Config.CANVAS_DIMENSION.height * 6 / 7) {
-                Camera.move(new Vector2(0, Config.CAMERA_SPEED));
-            }
-        }
 
 
 
 
         this.p.update();
+        Camera.getInstance().update();
         this.tileMap.update();
     }
 
@@ -128,6 +114,8 @@ public class Game extends JFrame {
 
         }
     }
+
+
 
     public static void main(String[] args) {
         new Game().start();
