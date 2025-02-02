@@ -1,8 +1,10 @@
 package renderable;
 
+import renderable.entity.Entity;
+
 public interface Interactable {
 
-    void interact();
+    void handleInteraction(Entity e);
 
-    boolean inDistance();
+    boolean inDistance(Entity e);
 }

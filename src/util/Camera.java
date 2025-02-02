@@ -1,12 +1,7 @@
 package util;
 
 import game.InputManager;
-import renderable.Renderable;
 import renderable.entity.CameraLockable;
-import renderable.entity.Moveable;
-import renderable.entity.player.Player;
-
-import java.awt.*;
 
 public class Camera {
 
@@ -32,6 +27,7 @@ public class Camera {
     private Vector2 position = new Vector2(0, 0);
 
     private Camera() {
+        this.im = InputManager.getInstance();
     }
 
     public static Camera getInstance() {
@@ -56,9 +52,6 @@ public class Camera {
         this.locked = value;
     }
 
-    public void setInputManager(InputManager im) {
-        this.im = im;
-    }
 
     public void move(Vector2 difference) {
         if (this.position.x() + difference.x() >= 0 && this.position.x() + difference.x() <= MAX_X - Config.WIDTH

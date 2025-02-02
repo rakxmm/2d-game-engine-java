@@ -3,6 +3,7 @@ package tilemap;
 import renderable.tile.Tile;
 import renderable.tile.TileBlock;
 import renderable.tile.TileEmpty;
+import renderable.tile.TileInteract;
 import util.Config;
 
 import java.awt.Color;
@@ -27,6 +28,8 @@ public class TileMap {
             for (int j = 0; j < Config.TILES_PER_WIDTH; j++) {
                 if (i == 0 || j == 0 || i == Config.TILES_PER_HEIGHT - 1 || j == Config.TILES_PER_WIDTH - 1) {
                     this.map[i][j] = new TileBlock(j, i);
+                } else if (i == 4 && j == 4) {
+                    this.map[i][j] = new TileInteract(i, j);
                 } else {
                     this.map[i][j] = new TileEmpty(j, i);
                 }

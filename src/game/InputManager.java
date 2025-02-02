@@ -1,22 +1,32 @@
 package game;
 
-import renderable.Controllable;
 import renderable.entity.Moveable;
-import renderable.entity.player.Player;
 import util.Camera;
-import util.Config;
 import util.Vector2;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.PointerInfo;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class InputManager implements KeyListener {
     private Game window;
     private Moveable moveable;
 
-    public InputManager() {
+    private static InputManager instance;
 
+
+
+    private InputManager() {
+    }
+
+    public static InputManager getInstance() {
+        if (instance == null) {
+            instance = new InputManager();
+        }
+        return instance;
     }
 
     public void addGame(Game window) {

@@ -43,9 +43,6 @@ public abstract class Tile implements Renderable {
         return this.onScreen;
     }
 
-    @Override
-    public void render(Graphics2D g) {
-    }
 
     @Override
     public int layer() {

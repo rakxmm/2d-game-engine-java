@@ -1,13 +1,15 @@
 package game;
 
 
+
 import renderable.entity.player.Player;
 import tilemap.TileMap;
 import util.Camera;
 import util.Config;
 import util.Vector2;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.WindowConstants;
 
 public class Game extends JFrame {
 
@@ -20,8 +22,7 @@ public class Game extends JFrame {
     private Camera camera;
 
     public Game() {
-        this.im = new InputManager();
-        Camera.getInstance().setInputManager(this.im);
+        this.im = InputManager.getInstance();
         this.im.addGame(this);
 
         this.tileMap = new TileMap();
@@ -67,10 +68,7 @@ public class Game extends JFrame {
     private void logic() {
 
 
-
-
-
-
+        new Thread(() -> InteractionsManager.getInstance().checkDistances(this.p)).start();
         this.p.update();
         Camera.getInstance().update();
         this.tileMap.update();

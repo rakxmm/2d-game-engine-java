@@ -56,4 +56,6 @@ public abstract class Entity implements Renderable {
     public int compareTo(Renderable o) {
         return Integer.compare(this.layer(), o.layer());
     }
+
+    public abstract Vector2 getSize();
 }
